@@ -1,0 +1,11 @@
+[
+  {
+    "answer": "A CSS (Cascading Style Sheets) framework is a library allowing for easier, more standards-compliant web design using the Cascading Style Sheets language. It offers a collection of pre-designed elements and components, such as buttons, forms, navigation bars, etc., that you can use to build the interface of a web application or website rapidly. Frameworks like Bootstrap, Foundation, and Tailwind CSS are popular examples, providing responsive design and components that automatically adjust for different screen sizes.",
+    "links": [
+      "css",
+      "bootstrap",
+      "responsive-design"
+    ],
+    "question": "What is a CSS framework?"
+  }
+]

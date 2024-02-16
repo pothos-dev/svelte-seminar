@@ -1,0 +1,11 @@
+[
+  {
+    "question": "What is Responsive Design in web development?",
+    "answer": "Responsive Design in web development refers to the approach of creating websites that automatically adjust and adapt their layout, content, and appearance based on the screen size and orientation of the device being used to view them. This technique ensures that a site is accessible and provides an optimal viewing experience across a wide range of devices, from desktop computers to smartphones.",
+    "links": [
+      "css-media-queries",
+      "viewport-meta-tag",
+      "flexbox"
+    ]
+  }
+]

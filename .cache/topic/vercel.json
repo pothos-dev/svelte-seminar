@@ -1,0 +1,11 @@
+[
+  {
+    "question": "What is Vercel?",
+    "answer": "Vercel is a platform for frontend developers, designed to help build, preview, and deploy websites or web applications more efficiently. It integrates seamlessly with Git to automatically deploy your project every time you push code changes. Vercel is particularly known for its support of Next.js, a React framework, but it can be used with other web technologies as well.",
+    "links": [
+      "next-js",
+      "git",
+      "react"
+    ]
+  }
+]

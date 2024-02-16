@@ -1,0 +1,11 @@
+[
+  {
+    "question": "What is Svelte and what makes it unique compared to other JavaScript frameworks?",
+    "answer": "Svelte is a modern JavaScript framework for building user interfaces. Unlike traditional frameworks like React or Vue, which perform the bulk of their work in the browser, Svelte shifts that work into a compile step that happens when you build your app. This means Svelte compiles your code to highly optimized, imperative code that directly manipulates the DOM. As a result, applications built with Svelte are typically faster and more efficient, with smaller bundle sizes since there's no runtime overhead of a virtual DOM or framework code to interpret your templates. Svelte also encourages a more declarative style of coding, improving readability and maintainability.",
+    "links": [
+      "javascript",
+      "web-development",
+      "frontend-development"
+    ]
+  }
+]
