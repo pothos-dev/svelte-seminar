@@ -7,6 +7,7 @@
   import { slide } from "svelte/transition"
 
   let { theme } = $props<{ theme: Theme }>()
+
   function toggleTheme() {
     const currentIndex = themes.indexOf(theme)
     theme = themes[(currentIndex + 1) % themes.length]

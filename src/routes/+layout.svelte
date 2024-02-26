@@ -1,6 +1,6 @@
 <script lang="ts">
+  import ThemePicker, { type Theme } from "$lib/components/ThemePicker.svelte"
   import "../app.css"
-  import ThemePicker, { type Theme } from "./ThemePicker.svelte"
 
   let theme = $state("light" as Theme)
   $effect(() => {
