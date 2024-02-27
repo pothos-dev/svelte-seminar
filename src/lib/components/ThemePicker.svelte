@@ -5,7 +5,6 @@
 
 <script lang="ts">
   import { slide } from "svelte/transition"
-
   let { theme } = $props<{ theme: Theme }>()
 
   function toggleTheme() {
