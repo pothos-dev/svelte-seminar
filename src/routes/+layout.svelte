@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PageDebug from "$lib/components/PageDebug.svelte"
   import ThemePicker, { type Theme } from "$lib/components/ThemePicker.svelte"
   import "../app.css"
 
@@ -7,14 +8,20 @@
   let theme = $state("forest" as Theme)
 </script>
 
-<!-- ThemePicker in the top right corner -->
-<ThemePicker bind:theme />
-
 <!-- Provide theme to all children -->
 <div data-theme={theme}>
+  <!-- ThemePicker in the top right corner -->
+  <ThemePicker bind:theme />
+
+  <!-- Page Metadata in the bottom right corner -->
+  <PageDebug />
+
+  <!-- App Header -->
   <header>
     Hello {data.ipAddress}
   </header>
+
+  <!-- Page Content -->
   <slot />
 </div>
 
