@@ -18,3 +18,9 @@
 body {
   font-family: "Raleway Variable", sans-serif;
 }
+
+input {
+  @apply border border-solid border-foreground border-opacity-30 rounded-md;
+  @apply bg-background text-foreground;
+  @apply px-4 py-2;
+}

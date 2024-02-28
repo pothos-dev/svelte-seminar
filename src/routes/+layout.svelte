@@ -26,8 +26,12 @@
 </div>
 
 <style lang="postcss">
+  :global(body) {
+    @apply flex min-h-screen;
+  }
+
   div {
-    @apply w-screen h-screen;
+    @apply flex-1;
     @apply flex flex-col;
     @apply bg-background text-foreground;
   }
