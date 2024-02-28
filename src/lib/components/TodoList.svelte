@@ -64,7 +64,7 @@
 
   <div class="controls">
     {@render Input()}
-    <button on:click={clear}>
+    <button class="clear" on:click={clear}>
       {@render CleanupIcon()}
     </button>
   </div>
@@ -110,16 +110,6 @@
     @apply flex flex-col justify-between;
   }
 
-  .controls {
-    @apply flex flex-row gap-2 p-4;
-  }
-
-  input {
-    @apply flex-1 px-4 py-2;
-    @apply bg-background;
-    @apply border border-solid border-primary rounded-md;
-  }
-
   ul {
     @apply p-4;
     @apply flex flex-col gap-2 items-stretch;
@@ -133,5 +123,25 @@
 
   li > button.done {
     @apply line-through opacity-25;
+  }
+
+  .controls {
+    @apply flex flex-row items-center gap-2 p-4;
+  }
+
+  input {
+    @apply flex-1 px-4 py-2;
+    @apply bg-background;
+    @apply border border-solid border-primary rounded-md;
+  }
+
+  button.clear {
+    @apply aspect-square rounded-full p-1;
+  }
+
+  button,
+  input {
+    @apply hover:bg-foreground hover:bg-opacity-10;
+    @apply transition-all duration-300;
   }
 </style>
