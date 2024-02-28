@@ -1,4 +1,5 @@
 import { OPENWEATHERMAP_API_KEY } from "$env/static/private"
+import { completeText } from "$lib/openai"
 import type { ServerLoadEvent } from "@sveltejs/kit"
 import type { PageServerLoad } from "./$types"
 
@@ -12,7 +13,28 @@ export const load: PageServerLoad = async (event) => {
 
   let weather = await fetchWeather(event, lat, lon)
 
-  return { weather, city }
+  // No await!
+  let description = describeWeather(city, weather)
+
+  return { weather, city, description }
+}
+
+type GeocodeResult = { lat: number; lon: number }
+
+type WeatherResult = {
+  current: {
+    temp: number
+    feels_like: number
+    humidity: number
+    clouds: number
+    wind_speed: number
+    weather: Array<{
+      id: number
+      main: string
+      description: string
+      icon: string
+    }>
+  }
 }
 
 async function geocode(event: ServerLoadEvent, city: string) {
@@ -21,8 +43,6 @@ async function geocode(event: ServerLoadEvent, city: string) {
   url.searchParams.append("q", city)
   let response = await event.fetch(url)
   let data = await response.json()
-
-  type GeocodeResult = { lat: number; lon: number }
 
   return data as GeocodeResult[]
 }
@@ -38,21 +58,29 @@ async function fetchWeather(event: ServerLoadEvent, lat: number, lon: number) {
   let response = await event.fetch(url)
   let data = await response.json()
 
-  type WeatherResult = {
-    current: {
-      temp: 15.54
-      feels_like: 14.61
-      humidity: 56
-      clouds: 100
-      wind_speed: 0.92
-      weather: Array<{
-        id: 804
-        main: "Clouds"
-        description: "overcast clouds"
-        icon: "04n"
-      }>
-    }
-  }
-
   return data as WeatherResult
+}
+
+async function describeWeather(
+  city: string,
+  weatherResult: WeatherResult
+): Promise<string> {
+  let { temp, feels_like, clouds, humidity, wind_speed, weather } =
+    weatherResult.current
+
+  temp = Math.round(temp)
+  feels_like = Math.round(feels_like)
+  wind_speed = Math.round(wind_speed)
+  humidity = Math.round(humidity)
+  let shortDescription = weather[0].description
+
+  return completeText(`
+    You are a radio moderator announcing the weather in ${city}.
+    Describe it in a few sentences user over-the-top wording.
+
+    The weather can be described as ${shortDescription}.
+    The current temperature is ${temp}°C, but it feels like ${feels_like}°C.
+    The humidity is at ${humidity}%, and the wind is blowing at ${wind_speed}m/s.
+    The amout of clouds is ${clouds}%.
+  `)
 }
