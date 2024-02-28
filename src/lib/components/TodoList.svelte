@@ -55,34 +55,24 @@
   }
 </script>
 
-<div
-  class="todo-list h-full flex flex-col justify-between bg-background text-foreground md:max-w-screen-md"
->
-  <ul class="flex flex-col gap-2 p-4 items-stretch justify-end">
+<div class="todo-list">
+  <ul>
     {#each todos as todo (todo.id)}
       {@render TodoItem(todo)}
     {/each}
   </ul>
-  <div class="flex flex-row gap-2 p-4">
+
+  <div class="controls">
     {@render Input()}
-    <button class="clear" on:click={clear}>
+    <button on:click={clear}>
       {@render CleanupIcon()}
     </button>
   </div>
 </div>
 
 {#snippet TodoItem(todo)}
-  <li
-    class="p-2 border border-foreground border-opacity-50 border-solid rounded-md"
-    out:fly={{ x: 200, duration: 1000 }}
-    in:fly={{ y: 1000, duration: 1000 }}
-  >
-    <button
-      class="text-foreground"
-      class:line-through={todo.done}
-      class:opacity-50={todo.done}
-      on:click={() => onClick(todo)}
-    >
+  <li out:fly={{ x: 200, duration: 1000 }} in:fly={{ y: 1000, duration: 1000 }}>
+    <button class:done={todo.done} on:click={() => onClick(todo)}>
       {todo.text}
     </button>
   </li>
@@ -90,7 +80,6 @@
 
 {#snippet Input()}
   <input
-    class="flex-1 border border-solid border-primary px-4 py-2 rounded-md bg-background"
     type="text"
     {placeholder}
     bind:value={newTodoText}
@@ -114,3 +103,35 @@
     />
   </svg>
 {/snippet}
+
+<style lang="postcss">
+  .todo-list {
+    @apply h-full w-full max-w-screen-sm;
+    @apply flex flex-col justify-between;
+  }
+
+  .controls {
+    @apply flex flex-row gap-2 p-4;
+  }
+
+  input {
+    @apply flex-1 px-4 py-2;
+    @apply bg-background;
+    @apply border border-solid border-primary rounded-md;
+  }
+
+  ul {
+    @apply p-4;
+    @apply flex flex-col gap-2 items-stretch;
+  }
+
+  li > button {
+    @apply w-full p-2;
+    @apply border border-foreground border-opacity-50 border-solid rounded-md;
+    @apply text-start;
+  }
+
+  li > button.done {
+    @apply line-through opacity-25;
+  }
+</style>

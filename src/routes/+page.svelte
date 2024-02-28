@@ -2,6 +2,13 @@
   import TodoList from "$lib/components/TodoList.svelte"
 </script>
 
-<div class="h-full mx-auto w-full max-w-screen-md">
+<div>
   <TodoList />
 </div>
+
+<style lang="postcss">
+  div {
+    @apply h-full;
+    @apply flex flex-col items-center;
+  }
+</style>

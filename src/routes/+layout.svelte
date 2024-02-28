@@ -1,21 +1,34 @@
 <script lang="ts">
-  import { page } from "$app/stores"
   import ThemePicker, { type Theme } from "$lib/components/ThemePicker.svelte"
   import "../app.css"
-  import type { PageData } from "./$types"
 
-  let { ipAddress } = $page.data as PageData
+  let { data } = $props()
 
   let theme = $state("forest" as Theme)
 </script>
 
-<div data-theme={theme} class="bg-background w-screen h-screen flex flex-col">
-  <header
-    class="h-12 bg-foreground bg-opacity-5 drop-shadow-md flex flex-row items-center text-foreground px-4"
-  >
-    Hello {ipAddress}
+<!-- ThemePicker in the top right corner -->
+<ThemePicker bind:theme />
+
+<!-- Provide theme to all children -->
+<div data-theme={theme}>
+  <header>
+    Hello {data.ipAddress}
   </header>
   <slot />
 </div>
 
-<ThemePicker bind:theme />
+<style lang="postcss">
+  div {
+    @apply w-screen h-screen;
+    @apply flex flex-col;
+    @apply bg-background text-foreground;
+  }
+
+  header {
+    @apply h-12 px-4;
+    @apply bg-foreground bg-opacity-5;
+    @apply drop-shadow-md;
+    @apply flex flex-row items-center;
+  }
+</style>
