@@ -1,7 +1,11 @@
 <script lang="ts">
+  import { completeText } from "$lib/openai"
+
   let { data } = $props()
-  let { city, weather, description } = data
+  let { city, weather, chatterPrompt } = data
   let { temp, feels_like, humidity } = weather.current
+
+  let chatter = completeText(chatterPrompt)
 </script>
 
 <section>
@@ -11,13 +15,15 @@
     <p>The humidity is {humidity}%</p>
   </header>
 
-  <main>
-    {#await description}
+  <p>{$chatter}</p>
+
+  <!-- <main>
+    {#await chatterPromise}
       <p>Loading...</p>
     {:then text}
       <p>{text}</p>
     {/await}
-  </main>
+  </main> -->
 </section>
 
 <style lang="postcss">

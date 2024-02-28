@@ -1,20 +1,24 @@
-import { OPENAI_API_KEY } from "$env/static/private"
-import { OpenAI } from "openai"
+import { browser } from "$app/environment"
+import { writable, type Readable } from "svelte/store"
 
-let openAI = new OpenAI({
-  apiKey: OPENAI_API_KEY,
-})
+export function completeText(prompt: string): Readable<string> {
+  let store = writable("")
 
-export async function completeText(prompt: string): Promise<string> {
-  const response = await openAI.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    messages: [
-      {
-        role: "system",
-        content: prompt,
-      },
-    ],
-  })
+  if (browser) {
+    // Only run this code in the browser
+    fetch(`/api/completeText?prompt=${encodeURIComponent(prompt)}`).then(
+      async (response) => {
+        let inputStream = response.body!
+        let decoderStream = inputStream.pipeThrough(new TextDecoderStream())
+        let reader = decoderStream.getReader()
+        while (true) {
+          let { done, value } = await reader.read()
+          if (done) break
+          store.update((s) => s + value)
+        }
+      }
+    )
+  }
 
-  return response.choices[0].message.content ?? ""
+  return store
 }

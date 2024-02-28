@@ -1,5 +1,4 @@
 import { OPENWEATHERMAP_API_KEY } from "$env/static/private"
-import { completeText } from "$lib/openai"
 import type { ServerLoadEvent } from "@sveltejs/kit"
 import type { PageServerLoad } from "./$types"
 
@@ -12,11 +11,14 @@ export const load: PageServerLoad = async (event) => {
   let { lat, lon } = results[0]
 
   let weather = await fetchWeather(event, lat, lon)
+  let chatterPrompt = buildWeatherPrompt(city, weather)
 
-  // No await!
-  let description = describeWeather(city, weather)
-
-  return { weather, city, description }
+  return {
+    weather,
+    city,
+    chatterPrompt,
+    // chatterPromise: completeTextAsync(chatterPrompt),
+  }
 }
 
 type GeocodeResult = { lat: number; lon: number }
@@ -61,10 +63,7 @@ async function fetchWeather(event: ServerLoadEvent, lat: number, lon: number) {
   return data as WeatherResult
 }
 
-async function describeWeather(
-  city: string,
-  weatherResult: WeatherResult
-): Promise<string> {
+function buildWeatherPrompt(city: string, weatherResult: WeatherResult) {
   let { temp, feels_like, clouds, humidity, wind_speed, weather } =
     weatherResult.current
 
@@ -74,13 +73,13 @@ async function describeWeather(
   humidity = Math.round(humidity)
   let shortDescription = weather[0].description
 
-  return completeText(`
-    You are a radio moderator announcing the weather in ${city}.
-    Describe it in a few sentences user over-the-top wording.
+  return `
+  You are a radio moderator announcing the weather in ${city}.
+  Describe it in a few sentences user over-the-top wording.
 
-    The weather can be described as ${shortDescription}.
-    The current temperature is ${temp}°C, but it feels like ${feels_like}°C.
-    The humidity is at ${humidity}%, and the wind is blowing at ${wind_speed}m/s.
-    The amout of clouds is ${clouds}%.
-  `)
+  The weather can be described as ${shortDescription}.
+  The current temperature is ${temp}°C, but it feels like ${feels_like}°C.
+  The humidity is at ${humidity}%, and the wind is blowing at ${wind_speed}m/s.
+  The amout of clouds is ${clouds}%.
+`
 }
