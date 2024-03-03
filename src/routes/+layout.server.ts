@@ -1,6 +1,4 @@
-import type { LayoutServerLoad } from "./$types"
-
-export const load: LayoutServerLoad = (event) => {
+export function load(event) {
   return {
     ipAddress: event.getClientAddress(),
   }

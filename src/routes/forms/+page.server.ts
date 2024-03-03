@@ -1,7 +1,6 @@
 import { fail, redirect } from "@sveltejs/kit"
-import type { Actions } from "./$types"
 
-export let actions: Actions = {
+export let actions = {
   async default(event) {
     let data = await event.request.formData()
     let email = data.get("email")

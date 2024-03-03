@@ -1,8 +1,7 @@
 import { OPENWEATHERMAP_API_KEY } from "$env/static/private"
 import type { ServerLoadEvent } from "@sveltejs/kit"
-import type { PageServerLoad } from "./$types"
 
-export const load: PageServerLoad = async (event) => {
+export async function load(event) {
   const city = event.params.city
 
   console.log("Loading data for " + city)

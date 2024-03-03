@@ -11,9 +11,8 @@ const schema = z.object({
 })
 
 import { fail, redirect } from "@sveltejs/kit"
-import type { PageServerLoad } from "./$types"
 
-export const load: PageServerLoad = async (event) => {
+export async function load(event) {
   return {
     form: await superValidate(zod(schema)),
   }
