@@ -13,7 +13,7 @@
 
 <style lang="postcss">
   aside {
-    @apply absolute right-0 bottom-0 p-2 max-w-96 max-h-96;
+    @apply absolute right-0 bottom-0 p-2 max-w-96 max-h-96 overflow-scroll;
     @apply opacity-25 hover:opacity-100;
     @apply transition-all duration-300;
   }

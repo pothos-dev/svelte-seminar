@@ -1,11 +1,11 @@
 <script lang="ts">
   import { superForm } from "sveltekit-superforms"
 
-  let { data, form: formAction } = $props()
-  let { form, errors, enhance } = superForm(formAction?.form ?? data.form)
+  let { data } = $props()
+  let { form, errors, enhance } = superForm(data.form)
 </script>
 
-<form method="post">
+<form method="post" use:enhance>
   <label for="email">Email</label>
   <input name="email" type="text" bind:value={$form.email} />
 
