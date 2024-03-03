@@ -5,7 +5,7 @@
   let { form, errors, enhance } = superForm(formAction?.form ?? data.form)
 </script>
 
-<form method="post" use:enhance>
+<form method="post">
   <label for="email">Email</label>
   <input name="email" type="text" bind:value={$form.email} />
 
