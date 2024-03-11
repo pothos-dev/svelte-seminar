@@ -2,10 +2,13 @@
   import { superForm } from "sveltekit-superforms"
 
   let { data } = $props()
-  let { form, errors, enhance } = superForm(data.form)
+  let { form, errors, enhance } = superForm(data.signUpForm)
+  $effect(() => {
+    console.log($form)
+  })
 </script>
 
-<form method="post" use:enhance>
+<form method="post" action="/auth/login" use:enhance>
   <label for="email">Email</label>
   <input name="email" type="text" bind:value={$form.email} />
 
@@ -25,6 +28,10 @@
     <input name="subscribe" type="checkbox" bind:checked={$form.subscribe} />
     <label for="subscribe">Subscribe to Mewsletter</label>
   </div>
+  {#if $errors.subscribe}
+    <p class="error">{$errors.subscribe}</p>
+  {/if}
+
   <button type="submit">Submit</button>
 </form>
 

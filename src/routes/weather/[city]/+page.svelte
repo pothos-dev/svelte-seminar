@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { completeText } from "$lib/openai"
+  import { completeText } from "$lib/openai.js"
 
   let { data } = $props()
   let { city, weather, chatterPrompt } = data
@@ -15,7 +15,8 @@
     <p>The humidity is {humidity}%</p>
   </header>
 
-  <p>{$chatter}</p>
+  <p>{chatterPrompt}</p>
+  <!-- <p>{$chatter}</p> -->
 
   <!-- <main>
     {#await chatterPromise}

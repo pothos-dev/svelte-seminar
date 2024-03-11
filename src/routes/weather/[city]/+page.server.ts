@@ -1,5 +1,5 @@
 import { OPENWEATHERMAP_API_KEY } from "$env/static/private"
-import type { ServerLoadEvent } from "@sveltejs/kit"
+import { error, type ServerLoadEvent } from "@sveltejs/kit"
 
 export async function load(event) {
   const city = event.params.city
@@ -7,6 +7,10 @@ export async function load(event) {
   console.log("Loading data for " + city)
 
   let results = await geocode(event, city)
+  if (results.length == 0) {
+    error(404, "City not found")
+  }
+
   let { lat, lon } = results[0]
 
   let weather = await fetchWeather(event, lat, lon)

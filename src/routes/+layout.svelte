@@ -18,7 +18,7 @@
 
   <!-- App Header -->
   <header>
-    Hello {data.ipAddress}
+    Hello {data.email}
   </header>
 
   <!-- Page Content -->

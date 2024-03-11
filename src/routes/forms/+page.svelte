@@ -1,20 +1,22 @@
 <script lang="ts">
   import { enhance } from "$app/forms"
 
-  let { form } = $props()
+  const { data, form } = $props()
+  let message = form?.message
 </script>
 
+<!-- Progressive Enhancement -->
 <form method="post" use:enhance>
   <label for="email">Email</label>
-  <input name="email" type="text" />
+  <input name="email" type="email" />
 
   <label for="password">Password</label>
   <input name="password" type="password" />
 
   <button type="submit">Submit</button>
 
-  {#if form}
-    <p class="error">{form.errorMessage}</p>
+  {#if message}
+    <p>{message}</p>
   {/if}
 </form>
 
